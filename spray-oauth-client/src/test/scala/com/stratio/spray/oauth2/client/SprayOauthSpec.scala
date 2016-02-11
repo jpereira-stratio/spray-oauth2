@@ -10,7 +10,6 @@ import scala.concurrent.duration._
 
 class SprayOauthSpec extends FlatSpec with OauthClient with Matchers with ScalatestRouteTest {
 
- // import TildeArrow._
 
   override implicit val actorRefFactory: ActorRefFactory = system
 

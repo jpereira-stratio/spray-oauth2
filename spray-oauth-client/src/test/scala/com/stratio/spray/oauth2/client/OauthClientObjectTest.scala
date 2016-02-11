@@ -1,8 +1,11 @@
 package com.stratio.spray.oauth2.client
 
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
 import org.scalatest.{FlatSpec, Matchers}
 
-class OauthClientObjectSpec extends FlatSpec with Matchers {
+@RunWith(classOf[JUnitRunner])
+class OauthClientObjectTest extends FlatSpec with Matchers {
   "parse token" should "parse a queryString" in {
     val (token, expires) = OauthClient.parseTokenRs("token=asdfasdf&expires=123&other=adsfas")
     token should be("asdfasdf")
