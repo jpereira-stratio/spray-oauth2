@@ -155,6 +155,10 @@
                     <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
                 </configuration>
             </plugin>
+                <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>            
             <plugin>
                 <groupId>org.scoverage</groupId>
                 <artifactId>scoverage-maven-plugin</artifactId>
