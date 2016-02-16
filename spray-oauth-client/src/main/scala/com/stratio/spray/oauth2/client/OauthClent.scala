@@ -85,7 +85,6 @@ trait OauthClient extends HttpService with SessionStore {
 
   def getToken(code: String): (String, Long) = {
     val tokenResponse: String = makeGetRq(tokenRq(code))
-    println(s"token response $tokenResponse")
     val (token: String, expires: Long) = parseTokenRs(tokenResponse)
     (token, expires)
   }
@@ -99,8 +98,6 @@ trait OauthClient extends HttpService with SessionStore {
     val pipeline: HttpRequest => Future[HttpResponse] = sendReceive
     val response = pipeline(Get(url))
     val plainResponse: HttpResponse = Await.result(response, Duration.Inf)
-    println(s"get -> $url ")
-    println(s"rs -> ${plainResponse.entity.asString}")
     plainResponse.entity.asString
   }
 

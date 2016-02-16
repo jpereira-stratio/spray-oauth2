@@ -30,13 +30,13 @@ class OauthClientHelperObjectTest extends FlatSpec with Matchers {
   "tokenRq" should "retrieve the a valid request" in {
     val url = OauthClientHelper.tokenRq("myToken")
     url should be
-    "https://sso.dev.stratio.com:9005/cas/oauth2.0/accessToken?code=myToken&grant_type=authorization_code&" +
+    "https://accounts.google.com/o/oauth2/token?code=myToken&grant_type=authorization_code&" +
       "client_secret=69b17e04246a4fa383f46ec6e28ea1g&" +
       "redirect_uri=http%3A%2F%2Farincon%3A8080%2Flogin&client_id=localhost-client"
   }
   "authorizeRq" should "retrieve a valid authorize request url" in {
     OauthClientHelper.authorizeRq should be
-    "https://sso.dev.stratio.com:9005/cas/oauth2.0/authorize?" +
+    "https://accounts.google.com/o/oauth2/auth?" +
       "redirect_uri=http%3A%2F%2Farincon%3A8080%2Flogin&client_id=localhost-client"
   }
   "Has Roles" should "return true if role is wildcard" in {
