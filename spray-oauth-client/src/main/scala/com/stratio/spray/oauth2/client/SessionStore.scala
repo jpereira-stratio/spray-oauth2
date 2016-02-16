@@ -25,6 +25,7 @@ trait SessionStore  {
   var sessionStore: Map[String, String] = Map()
 
   def addSession(sessionId: String, identity: String) ={
+    println(s"session content -> $identity")
       sessionStore += sessionId -> identity
   }
 

@@ -17,7 +17,7 @@
 package com.stratio.spray.oauth2.sample
 
 import akka.actor.{Props, ActorLogging}
-import com.stratio.spray.oauth2.client.OauthClient
+import com.stratio.spray.oauth2.client.{OauthClient, OauthClientHelper}
 import spray.routing.HttpServiceActor
 
 object ApiActor {
@@ -25,18 +25,22 @@ object ApiActor {
 }
 
 class ApiActor extends HttpServiceActor with OauthClient with ActorLogging {
-
+import OauthClientHelper._
 
   val myRoutes = sealRoute {
     secured { user =>
       path("p1") {
-        get {
-          complete(s"inn at  p1 ")
+        authorize(hasRole(Seq("*"), user)) {
+          get {
+            complete(s"inn at  p1 ")
+          }
         }
       } ~
         path("p2") {
-          get {
-            complete(s"inn at  p2")
+          authorize(hasRole(Seq("RoleWithoutPermision"), user)) {
+            get {
+              complete(s"inn at  p2")
+            }
           }
         } ~
         path("p3") {
