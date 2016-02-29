@@ -55,6 +55,7 @@ object OauthClientHelper {
       _.contains("ROLE")
     }.flatten.map(_ match {
       case (role: String, roles: Any) => roles
+      case (x)=>throw new RuntimeException("the user has no roles")
     }).asInstanceOf[Seq[Seq[String]]]
   }
 
