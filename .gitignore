@@ -25,6 +25,7 @@ project/plugins/project/
 # IntelliJ project files
 .idea
 *.iml
+*.bkp
 out
 gen
 

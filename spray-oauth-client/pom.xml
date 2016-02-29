@@ -32,31 +32,37 @@
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
             <version>${scala.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>io.spray</groupId>
             <artifactId>spray-can_${scala.binary.version}</artifactId>
             <version>${spray.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>io.spray</groupId>
             <artifactId>spray-routing_${scala.binary.version}</artifactId>
             <version>${spray.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>io.spray</groupId>
             <artifactId>spray-client_${scala.binary.version}</artifactId>
             <version>${spray.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>io.spray</groupId>
             <artifactId>spray-json_${scala.binary.version}</artifactId>
             <version>${spray.json.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.typesafe.akka</groupId>
             <artifactId>akka-actor_${scala.binary.version}</artifactId>
             <version>${akka.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.typesafe.akka</groupId>
@@ -68,6 +74,7 @@
             <groupId>com.typesafe</groupId>
             <artifactId>config</artifactId>
             <version>${typesafe.config.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.oltu.oauth2</groupId>
@@ -84,6 +91,7 @@
             <groupId>org.scalacheck</groupId>
             <artifactId>scalacheck_${scala.binary.version}</artifactId>
             <version>1.11.3</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.scalatest</groupId>
