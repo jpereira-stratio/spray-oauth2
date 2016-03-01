@@ -132,8 +132,8 @@
         <directory>${project.basedir}/target/${scala.binary.version}</directory>
         <outputDirectory>${project.build.directory}/classes</outputDirectory>
         <testOutputDirectory>${project.build.directory}/test-classes</testOutputDirectory>
-        <sourceDirectory>scala/src/main</sourceDirectory>
-        <testSourceDirectory>scala/src/test</testSourceDirectory>
+        <sourceDirectory>src/main/scala</sourceDirectory>
+        <testSourceDirectory>src/test/scala</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
