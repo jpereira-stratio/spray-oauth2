@@ -199,7 +199,6 @@
                     <defaultScalaVersion>${default.scala.version}</defaultScalaVersion>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
     <profiles>
