@@ -28,5 +28,5 @@ object Boot extends App{
 
   IO(Http) ! Http.Bind(listener = api,
     interface = "0.0.0.0",
-    port = 8080)
+    port = 9090)
 }
