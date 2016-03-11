@@ -172,6 +172,18 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.scoverage</groupId>
                 <artifactId>scoverage-maven-plugin</artifactId>
                 <version>1.1.0</version>
@@ -189,7 +201,6 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>com.stratio.mojo</groupId>
                 <artifactId>scala-cross-build-maven-plugin</artifactId>
