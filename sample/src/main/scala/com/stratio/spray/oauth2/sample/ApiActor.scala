@@ -20,25 +20,27 @@ import com.stratio.spray.oauth2.client.{OauthClient, OauthClientHelper}
 import spray.routing.HttpServiceActor
 
 object ApiActor {
+
   def props = Props[ApiActor]
 }
 
 class ApiActor extends HttpServiceActor with OauthClient with ActorLogging {
-import OauthClientHelper._
 
-  val myRoutes = sealRoute {
-    secured { user =>
+  import OauthClientHelper._
+
+  val myRoutes = {
+    {
       path("p1") {
-        authorize(hasRole(Seq("*"), user)) {
-          get {
-            complete(s"inn at  p1 ")
-          }
+        get {
+          complete(s"inn at  p1 ")
         }
       } ~
         path("p2") {
-          authorize(hasRole(Seq("RoleWithoutPermision"), user)) {
-            get {
-              complete(s"inn at  p2")
+          secured { user =>
+            authorize(hasRole(Seq("RoleWithoutPermision"), user)) {
+              get {
+                complete(s"inn at  p2")
+              }
             }
           }
         } ~
@@ -55,7 +57,14 @@ import OauthClientHelper._
       complete("no secured zone")
     }
   }
-  val route = otherRoute ~ secRoute ~ myRoutes
+  val authorizedRoute = authorized { user =>
+    path("authorized") {
+      get {
+        complete("no secured zone")
+      }
+    }
+  }
+  val route = otherRoute ~ secRoute ~ myRoutes ~ authorizedRoute
 
   override def receive: Receive = runRoute(route)
 }
