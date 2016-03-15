@@ -20,7 +20,8 @@ import org.scalatest.junit.JUnitRunner
 import org.scalatest.{FlatSpec, Matchers}
 
 @RunWith(classOf[JUnitRunner])
-class SessionStoreTest extends FlatSpec with Matchers with SessionStore {
+class SessionStoreTest extends FlatSpec with Matchers  {
+  import SessionStore._
   "Session Store" should "add a session" in {
     addSession("1", "my session content")
     sessionStore.get("1") should be(Some("my session content"))

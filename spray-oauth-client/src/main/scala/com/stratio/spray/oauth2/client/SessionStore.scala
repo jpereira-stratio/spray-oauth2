@@ -19,26 +19,29 @@ import java.util.UUID
 
 import scala.Predef._
 
-trait SessionStore  {
+object SessionStore  {
 
-  var sessionStore: Map[String, String] = Map()
+  var sessionStore: Map[String, String] = Map.empty[String,String]
 
   def addSession(sessionId: String, identity: String) ={
+    synchronized {
       sessionStore += sessionId -> identity
+    }
   }
 
   def getSession(sessionId: String): Option[String] ={
-    sessionStore.get(sessionId)
+    synchronized {
+      sessionStore.get(sessionId)
+    }
   }
 
-
   def removeSession(sessionId: String) ={
-    sessionStore -= sessionId
+    synchronized {
+      sessionStore -= sessionId
+    }
   }
 
   def getRandomSessionId:String = UUID.randomUUID().toString
-
 }
-
 
 

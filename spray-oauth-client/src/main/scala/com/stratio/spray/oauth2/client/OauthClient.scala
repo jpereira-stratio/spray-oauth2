@@ -22,10 +22,11 @@ import spray.routing._
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future, ExecutionContext}
-
-trait OauthClient extends HttpService with SessionStore {
+import SessionStore._
+trait OauthClient extends HttpService   {
 
   implicit val ec: ExecutionContext = ExecutionContext.global
+
   val configure = new Config
 
   import OauthClientHelper._
@@ -35,8 +36,6 @@ trait OauthClient extends HttpService with SessionStore {
   def indexRedirect = redirect(configure.indexPath, Found)
 
   def logoutRedirect = redirect(configure.LogoutUrl, Found)
-
-
 
   val secured: Directive1[String] = {
     if (configure.Enabled) {
