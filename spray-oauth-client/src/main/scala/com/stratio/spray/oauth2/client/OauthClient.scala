@@ -37,6 +37,25 @@ trait OauthClient extends HttpService   {
 
   def logoutRedirect = redirect(configure.LogoutUrl, Found)
 
+  val authorized: Directive1[String] = {
+    if (configure.Enabled) {
+      optionalCookie(configure.CookieName) flatMap {
+        case Some(x) => {
+          getSession(x.content) match {
+            case Some(cont: String) => provide(cont)
+            case None => complete(Unauthorized,"")
+          }
+        }
+        case None =>  complete(Unauthorized,"")
+      }
+    } else {
+      val sessionId = getRandomSessionId
+      addSession(sessionId, "*")
+      setCookie(HttpCookie(configure.CookieName, sessionId, None, None, None, Option("/")))
+      provide("*")
+    }
+  }
+
   val secured: Directive1[String] = {
     if (configure.Enabled) {
       optionalCookie(configure.CookieName) flatMap {
@@ -55,6 +74,8 @@ trait OauthClient extends HttpService   {
       provide("*")
     }
   }
+
+
 
   val login = (path("login") & get) {
     parameter("code") { code: String =>
