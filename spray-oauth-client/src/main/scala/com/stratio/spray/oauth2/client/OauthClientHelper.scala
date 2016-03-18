@@ -47,11 +47,11 @@ object OauthClientHelper {
     (token, expires)
   }
 
-  def gerRoles(user: String): Seq[Seq[String]] = {
+  def getRoles(user: String): Seq[Seq[String]] = {
     val parsed = JSON.parseFull(user).get.asInstanceOf[Map[String, Any]]
     val attrib = parsed.get("attributes").get.asInstanceOf[Seq[Map[String, Any]]]
     attrib.filter {
-      _.contains("ROLE")
+      _.contains(conf.RoleName)
     }.flatten.map(_ match {
       case (role: String, roles: Any) => roles
       case (x)=>throw new RuntimeException("the user has no roles")
@@ -60,7 +60,7 @@ object OauthClientHelper {
 
   def hasRole(role: Seq[String], user: String, conf: Config = conf): Boolean = {
     if (conf.Enabled) {
-      val roles: Seq[Seq[String]] = gerRoles(user)
+      val roles: Seq[Seq[String]] = getRoles(user)
       val result: Boolean = role.map(r => roles.contains(r)).foldLeft(false)(_ || _)
       role match {
         case Seq("*") => true

@@ -32,6 +32,7 @@ class Config(conf: com.typesafe.config.Config = ConfigFactory.load().getConfig("
   val ClientSecret: String = getDefaultString("client.secret", Option(""))
   val CookieName: String = getDefaultString("cookieName", Option("user"))
   val Enabled: Boolean = getDefaultBoolean("enable", false)
+  val RoleName: String = getDefaultString("roleName",Option("roles"))
   val configuration = conf
 
   private def getDefaultBoolean(key: String, defaultValue: Boolean): Boolean = {
