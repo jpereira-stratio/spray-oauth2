@@ -25,7 +25,7 @@ class OauthClientHelperObjectTest extends FlatSpec with Matchers {
 
   val user: String =
     """{"id":"sparkta1","attributes":[{"cn":"manager_2"},
-      |{"ROLE":["sparkta_designer","sparkta_manager","sparkta_executor"]}]}""".stripMargin
+      |{"my_role_name":["sparkta_designer","sparkta_manager","sparkta_executor"]}]}""".stripMargin
 
   "parse token" should "parse a queryString" in {
     val (token, expires) = OauthClientHelper.parseTokenRs("access_token=asdf-asdf&expires=7200")
