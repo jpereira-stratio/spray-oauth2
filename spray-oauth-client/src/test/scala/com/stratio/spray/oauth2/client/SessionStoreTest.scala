@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.stratio.spray.oauth2.client
 
 import org.junit.runner.RunWith
@@ -20,20 +21,36 @@ import org.scalatest.junit.JUnitRunner
 import org.scalatest.{FlatSpec, Matchers}
 
 @RunWith(classOf[JUnitRunner])
-class SessionStoreTest extends FlatSpec with Matchers  {
+class SessionStoreTest extends FlatSpec with Matchers {
+
   import SessionStore._
+
+  val now = System.currentTimeMillis()
+  val alive = now + 10000
+  val dead = now - 10000
   "Session Store" should "add a session" in {
-    addSession("1", "my session content")
-    sessionStore.get("1") should be(Some("my session content"))
+
+    addSession("1", "my session content", alive)
+    addSession("2", "my session content2", dead)
+    addSession("3", "my session content3", dead)
+
+    sessionStore.get("1") should be(Some("my session content", alive))
+  }
+  it should "not retrieve a expired session" in {
+    getSession("2") should be(None)
   }
   it should "retrieve session" in {
     getSession("1") should be(Some("my session content"))
   }
-  it should "remove the session" in{
+  it should "remove the session" in {
     removeSession("1")
-    sessionStore.get("1") should be (None)
+    sessionStore.get("1") should be(None)
   }
   it should "return a random id" in {
-    getRandomSessionId.isEmpty should be (false)
+    getRandomSessionId.isEmpty should be(false)
+  }
+  it should "clean all dead sessions" in {
+    clean
+    sessionStore.get("3") should be (None)
   }
 }

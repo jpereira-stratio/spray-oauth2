@@ -1,4 +1,7 @@
 # Changelog
+## 0.3.0 (Jan 2017)
+- Clean and remove invalid sessions
+
 ## 0.2.0 (March 2016)
 
 - Authorize directive for reject request without login
