@@ -3,7 +3,7 @@
 hose {
     MODULE = 'spray-oauth2'
     EMAIL = 'gosec'
-    REPO = 'spray-oauth2'
+    REPOSITORY = 'github.com/spray-oauth2'
     SHORTMODULE = 'so'
     CROSSBUILD = ['scala-2.10', 'scala-2.11']
 
