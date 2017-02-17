@@ -2,7 +2,7 @@
 
 ## 0.4.0 (upcoming)
 
-* Pending changelog
+* Handle crossbuilds properly
 
 ## 0.3.0 (February 17, 2017)
 
