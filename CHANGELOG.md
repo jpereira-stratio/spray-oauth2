@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.3.1 (upcoming)
+## 0.3.1 (February 17, 2017)
 
 * Handle crossbuilds properly
 
