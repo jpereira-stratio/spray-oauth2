@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.3.0 (upcoming)
+## 0.3.0 (February 17, 2017)
 
 * Clean and remove invalid sessions
 
