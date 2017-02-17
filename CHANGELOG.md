@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1 (upcoming)
+
+* Handle crossbuilds properly
+
 ## 0.3.0 (February 17, 2017)
 
 * Clean and remove invalid sessions

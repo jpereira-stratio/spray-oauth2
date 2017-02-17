@@ -15,16 +15,27 @@ hose {
     RELEASETIMEOUT = 10
     DEV = { config ->        
         
-        doCompile(config)
-        
-        doUT(config)
-
-        doPackage(config)
+        parallel((config.CROSSBUILD[0]): {
+            doCompile(conf: config, crossbuild: config.CROSSBUILD[0])
+            doUT(conf: config, crossbuild: config.CROSSBUILD[0])
+            doPackage(conf: config, crossbuild: config.CROSSBUILD[0])
     
-        parallel(QC: {
-            doStaticAnalysis(config)
-        }, DEPLOY: {
-            doDeploy(config)
-        }, failFast: config.FAILFAST)   
+            parallel(QC: {
+                doStaticAnalysis(conf: config, crossbuild: config.CROSSBUILD[0])
+            }, DEPLOY: {
+                doDeploy(conf: config, crossbuild: config.CROSSBUILD[0])
+            }, failFast: config.FAILFAST)
+            
+        }, (config.CROSSBUILD[1]): {
+            doCompile(conf: config, crossbuild: config.CROSSBUILD[1])
+            doUT(conf: config, crossbuild: config.CROSSBUILD[1])
+            doPackage(conf: config, crossbuild: config.CROSSBUILD[1])
+    
+            parallel(QC: {
+                doStaticAnalysis(conf: config, crossbuild: config.CROSSBUILD[1])
+            }, DEPLOY: {
+                doDeploy(conf: config, crossbuild: config.CROSSBUILD[1])
+            }, failFast: config.FAILFAST)
+        }, failFast: config.FAILFAST)
     }
 }
