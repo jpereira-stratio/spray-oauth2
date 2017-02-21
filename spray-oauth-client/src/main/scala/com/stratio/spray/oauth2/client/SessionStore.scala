@@ -26,7 +26,7 @@ object SessionStore {
 
   def addSession(sessionId: String, identity: String, expires: Long) = {
     synchronized {
-      sessionStore += sessionId -> (identity, expires)
+      sessionStore += sessionId -> (identity, now + expires)
     }
   }
 
