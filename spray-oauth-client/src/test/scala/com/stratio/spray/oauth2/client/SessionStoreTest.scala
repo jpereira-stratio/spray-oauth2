@@ -26,15 +26,15 @@ class SessionStoreTest extends FlatSpec with Matchers {
   import SessionStore._
 
   val now = System.currentTimeMillis()
-  val alive = now + 10000
-  val dead = now - 10000
+  val alive = 10000
+  val dead = -10000
   "Session Store" should "add a session" in {
 
     addSession("1", "my session content", alive)
     addSession("2", "my session content2", dead)
     addSession("3", "my session content3", dead)
 
-    sessionStore.get("1") should be(Some("my session content", alive))
+    sessionStore.get("1").map(_._1) should be(Some("my session content"))
   }
   it should "not retrieve a expired session" in {
     getSession("2") should be(None)
