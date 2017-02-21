@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.2 (upcoming)
+
+* Fixed creation of expired sessions
+
 ## 0.3.1 (February 17, 2017)
 
 * Handle crossbuilds properly
