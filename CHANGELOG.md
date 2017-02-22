@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.3.2 (upcoming)
+## 0.3.2 (February 22, 2017)
 
 * Fixed creation of expired sessions
 
