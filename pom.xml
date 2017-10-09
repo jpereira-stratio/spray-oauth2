@@ -34,32 +34,92 @@
     <inceptionYear>2016</inceptionYear>
     <modules>
         <module>spray-oauth-client</module>
-        <module>akka-oauth2-client_211</module>
     </modules>
     <properties>
         <scala_2.10.version>2.10.4</scala_2.10.version>
         <scala_2.11.version>2.11.7</scala_2.11.version>
-        <scala_2.11.8.version>2.11.8</scala_2.11.8.version>
         <default.scala.binary.version>2.10</default.scala.binary.version>
         <default.scala.version>${scala_2.10.version}</default.scala.version>
         <scala.version>2.10.4</scala.version>
         <scala.binary.version>2.10</scala.binary.version>
-        <scala_2.11.binary.version>2.11</scala_2.11.binary.version>
         <spray.version>1.3.3</spray.version>
         <spray.json.version>1.3.2</spray.json.version>
         <akka.version>2.3.9</akka.version>
-        <akka_2.4.8.version>2.4.8</akka_2.4.8.version>
         <typesafe.config.version>1.2.1</typesafe.config.version>
-        <typesafe.version>1.3.0</typesafe.version>
         <olthu.version>1.0.1</olthu.version>
         <scalatest.version>2.2.1</scalatest.version>
-        <scalatest_2.2.5.version>2.2.5</scalatest_2.2.5.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>${scala.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.spray</groupId>
+            <artifactId>spray-can_${scala.binary.version}</artifactId>
+            <version>${spray.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.spray</groupId>
+            <artifactId>spray-routing_${scala.binary.version}</artifactId>
+            <version>${spray.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.spray</groupId>
+            <artifactId>spray-client_${scala.binary.version}</artifactId>
+            <version>${spray.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.spray</groupId>
+            <artifactId>spray-json_${scala.binary.version}</artifactId>
+            <version>${spray.json.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-actor_${scala.binary.version}</artifactId>
+            <version>${akka.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-testkit_${scala.binary.version}</artifactId>
+            <version>${akka.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.typesafe</groupId>
+            <artifactId>config</artifactId>
+            <version>${typesafe.config.version}</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.apache.oltu.oauth2</groupId>
             <artifactId>org.apache.oltu.oauth2.client</artifactId>
             <version>${olthu.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.spray</groupId>
+            <artifactId>spray-testkit_${scala.binary.version}</artifactId>
+            <version>1.3.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.scalacheck</groupId>
+            <artifactId>scalacheck_${scala.binary.version}</artifactId>
+            <version>1.11.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.scalatest</groupId>
+            <artifactId>scalatest_${scala.binary.version}</artifactId>
+            <version>${scalatest.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -167,15 +227,5 @@
                 <scala.version>${scala_2.11.version}</scala.version>
             </properties>
         </profile>
-        <profile>
-            <id>scala-2.11.8</id>
-            <properties>
-                <scala.binary.version>2.11</scala.binary.version>
-                <scala.version>${scala_2.11.8.version}</scala.version>
-                <scalatest.version>2.2.5</scalatest.version>
-                <akka.version>2.4.8</akka.version>
-            </properties>
-        </profile>
-
     </profiles>
 </project>
