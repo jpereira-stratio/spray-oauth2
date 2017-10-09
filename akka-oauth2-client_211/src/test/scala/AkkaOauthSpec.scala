@@ -27,7 +27,7 @@ import scala.concurrent.duration._
 
 class AkkaOauthSpec extends FlatSpec with OauthClient with Matchers with ScalatestRouteTest {
 
-  override implicit val system = ActorSystem()
+  override implicit val system = ActorSystem() 
   implicit val actorRefFactory: ActorRefFactory = system
   override implicit val materializer: ActorMaterializer = ActorMaterializer()
 
