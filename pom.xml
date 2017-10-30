@@ -23,7 +23,7 @@
     <parent>
         <groupId>com.stratio</groupId>
         <artifactId>parent</artifactId>
-        <version>0.7.0</version>
+        <version>0.9.0</version>
     </parent>
     <name>Stratio Spray OAuth 2.0 Client</name>
     <description>This is a spray client, which supports OAuth 2.0 protocol</description>
@@ -208,6 +208,37 @@
                 <configuration>
                     <defaultScalaBinaryVersion>${default.scala.binary.version}</defaultScalaBinaryVersion>
                     <defaultScalaVersion>${default.scala.version}</defaultScalaVersion>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>2.11</version>
+                <configuration>
+                    <mapping>
+                        <java>SLASHSTAR_STYLE</java>
+                        <scala>SLASHSTAR_STYLE</scala>
+                        <ts>SLASHSTAR_STYLE</ts>
+                        <scss>JAVADOC_STYLE</scss>
+                        <R>SCRIPT_STYLE</R>
+                    </mapping>
+                    <useDefaultExcludes>false</useDefaultExcludes>
+                    <header>${license.header}</header>
+                    <includes>
+                        <include>spray-oauth-client/**</include>
+                        <include>sample/**</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/front/**</exclude>
+                        <exclude>**/rest/**</exclude>
+                        <exclude>**/dist/**</exclude>
+                        <exclude>**/.*/**</exclude>
+                        <exclude>**/_themes/stratio/**</exclude>
+                        <exclude>**/*.rst</exclude>
+                        <exclude>**/*.feature</exclude>
+                        <exclude>**/README*</exclude>
+                        <exclude>**/node*/**</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
         </plugins>
