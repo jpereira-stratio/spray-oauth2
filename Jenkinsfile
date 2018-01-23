@@ -1,4 +1,4 @@
-@Library('libpipelines@master') _
+@Library('libpipelines@debug-deploy') _
 
 hose {
     MODULE = 'spray-oauth2'
