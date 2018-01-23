@@ -10,7 +10,7 @@ hose {
     SLACKTEAM = 'stratioSecurity'
 
     FOSS = true
-
+    DEPLOYONPRS = true
     DEVTIMEOUT = 15
     RELEASETIMEOUT = 10
     DEV = { config ->        
