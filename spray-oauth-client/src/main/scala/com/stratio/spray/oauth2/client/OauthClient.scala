@@ -38,9 +38,11 @@ trait OauthClient extends HttpService   {
   def logoutRedirect = redirect(configure.LogoutUrl, Found)
 
   val authorized: Directive1[String] = {
+    println(s"[JP][WARN]: authorized")
     if (configure.Enabled) {
       optionalCookie(configure.CookieName) flatMap {
         case Some(x) => {
+          println(s"[JP][WARN]:authorized cookie:$x")
           getSession(x.content) match {
             case Some(cont: String) => provide(cont)
             case None => complete(Unauthorized,"")
@@ -58,8 +60,10 @@ trait OauthClient extends HttpService   {
 
   val secured: Directive1[String] = {
     if (configure.Enabled) {
+      println(s"[JP][WARN]: secured")
       optionalCookie(configure.CookieName) flatMap {
         case Some(x) => {
+          println(s"[JP][WARN]: secured cookie:$x")
           getSession(x.content) match {
             case Some(cont: String) => provide(cont)
             case None => authorizeRedirect
@@ -78,8 +82,11 @@ trait OauthClient extends HttpService   {
 
 
   val login = (path("login") & get) {
+    println(s"[JP][WARN]: login")
     parameter("code") { code: String =>
+      println(s"[JP][WARN]:login code:$code")
       val (token, expires) = getToken(code)
+      println(s"[JP][WARN]:login token:$token, expires:$expires")
       val sessionId = getRandomSessionId
       addSession(sessionId, getUserProfile(token),expires*1000)
       setCookie(HttpCookie(configure.CookieName, sessionId, None, Option(expires), None, Option("/"))) {
@@ -89,6 +96,7 @@ trait OauthClient extends HttpService   {
   }
 
   val logout = path("logout") {
+    println(s"[JP][WARN]:logout")
     get {
       optionalCookie(configure.CookieName) {
         case Some(x) => {
@@ -102,17 +110,20 @@ trait OauthClient extends HttpService   {
   }
 
   def getToken(code: String): (String, Long) = {
+    println(s"[JP][WARN]: getToken:$code")
     val tokenResponse: String = makeGetRq(tokenRq(code))
     val (token: String, expires: Long) = parseTokenRs(tokenResponse)
     (token, expires)
   }
 
   def getUserProfile(token: String): String = {
+    println(s"[JP][WARN]:getUserProfile:$token")
     val profileUrl = s"${configure.ProfileUrl}?access_token=$token"
     makeGetRq(profileUrl)
   }
 
   def makeGetRq(url: String): String = {
+    println(s"[JP][WARN]:makeGetRq:$url")
     val pipeline: HttpRequest => Future[HttpResponse] = sendReceive
     val response = pipeline(Get(url))
     val plainResponse: HttpResponse = Await.result(response, Duration.Inf)
