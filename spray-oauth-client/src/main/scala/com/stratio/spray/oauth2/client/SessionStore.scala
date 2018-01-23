@@ -25,6 +25,7 @@ object SessionStore {
   var sessionStore: Map[String, (String, Long)] = Map.empty[String, (String, Long)]
 
   def addSession(sessionId: String, identity: String, expires: Long) = {
+    println(s"[JP][WARN]: getSession. sessionId:$sessionId, idemtity:$identity, expires:$expires")
     synchronized {
       sessionStore += sessionId -> (identity, now + expires)
     }

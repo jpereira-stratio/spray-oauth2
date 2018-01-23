@@ -59,16 +59,20 @@ object OauthClientHelper {
   }
 
   def hasRole(role: Seq[String], user: String, conf: Config = conf): Boolean = {
+    println(s"[JP][WARN]: hasRole:$role,user:$user")
     if (conf.Enabled) {
       val roles: Seq[Seq[String]] = getRoles(user)
+      println(s"[JP][WARN]: hasRole. roles:${roles.toString()}")
       val result: Boolean = role.map(r => roles.contains(r)).foldLeft(false)(_ || _)
-      role match {
+      val result2 = role match {
         case Seq("*") => true
         case _ =>roles.flatMap(v =>
           v.map(v =>
             role.contains(v))
         ).contains(true)
       }
+      println(s"[JP][WARN]: hasRole. result:$result, result2:$result2")
+      result2
     } else true
   }
 
