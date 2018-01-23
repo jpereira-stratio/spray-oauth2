@@ -5,7 +5,7 @@ hose {
     EMAIL = 'gosec'
     REPOSITORY = 'github.com/spray-oauth2'
     SHORTMODULE = 'so'
-    CROSSBUILD = ['scala-2.10', 'scala-2.11']
+    CROSSBUILD = [scala-2.11']
 
     SLACKTEAM = 'stratioSecurity'
 
@@ -26,16 +26,6 @@ hose {
                 doDeploy(conf: config, crossbuild: config.CROSSBUILD[0])
             }, failFast: config.FAILFAST)
             
-        }, (config.CROSSBUILD[1]): {
-            doCompile(conf: config, crossbuild: config.CROSSBUILD[1])
-            doUT(conf: config, crossbuild: config.CROSSBUILD[1])
-            doPackage(conf: config, crossbuild: config.CROSSBUILD[1])
-    
-            parallel(QC: {
-                doStaticAnalysis(conf: config, crossbuild: config.CROSSBUILD[1])
-            }, DEPLOY: {
-                doDeploy(conf: config, crossbuild: config.CROSSBUILD[1])
-            }, failFast: config.FAILFAST)
-        }, failFast: config.FAILFAST)
+        }
     }
 }
