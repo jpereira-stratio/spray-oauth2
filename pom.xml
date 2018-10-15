@@ -35,6 +35,20 @@
     <modules>
         <module>spray-oauth-client</module>
     </modules>
+
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>Stratio releases</name>
+            <url>http://sodio.stratio.com/repository/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Stratio snapshots</name>
+            <url>http://sodio.stratio.com/repository/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <properties>
         <scala_2.10.version>2.10.4</scala_2.10.version>
         <scala_2.11.version>2.11.7</scala_2.11.version>
