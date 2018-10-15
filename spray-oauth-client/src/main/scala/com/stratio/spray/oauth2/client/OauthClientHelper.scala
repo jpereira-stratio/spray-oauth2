@@ -22,7 +22,7 @@ import scala.util.Try
 import scala.util.parsing.json.JSON
 
 
-object OauthClientHelper {
+object OauthClientHelper extends Logging {
 
   val conf = new Config
 
@@ -60,16 +60,26 @@ object OauthClientHelper {
 
   def hasRole(role: Seq[String], user: String, conf: Config = conf): Boolean = {
     if (conf.Enabled) {
+      logger.debug(s"Checking if user [$user] has permitted role: [$role]")
       val roles: Seq[Seq[String]] = getRoles(user)
-      val result: Boolean = role.map(r => roles.contains(r)).foldLeft(false)(_ || _)
-      role match {
+      logger.debug(s"User [$user] roles:[$roles]")
+      val auth = role match {
         case Seq("*") => true
         case _ =>roles.flatMap(v =>
           v.map(v =>
             role.contains(v))
         ).contains(true)
       }
-    } else true
+      if (auth){
+        logger.debug(s"User [$user] belongs to permitted roles")
+      }else{
+        logger.info(s"User [$user] does not contains required roles. Please check permitted roles list [$role]")
+      }
+      auth
+    } else {
+      logger.debug(s"security disabled. Avoiding role checking")
+      true
+    }
   }
 
   private def parseExpires(parsedMap: Map[String, String]): Long = {

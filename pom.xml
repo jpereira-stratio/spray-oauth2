@@ -48,6 +48,7 @@
         <typesafe.config.version>1.2.1</typesafe.config.version>
         <olthu.version>1.0.1</olthu.version>
         <scalatest.version>2.2.1</scalatest.version>
+        <log4j.version>2.11.0</log4j.version>
     </properties>
     <dependencies>
         <dependency>
@@ -125,6 +126,12 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

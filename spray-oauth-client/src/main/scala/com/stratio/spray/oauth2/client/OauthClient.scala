@@ -23,7 +23,7 @@ import spray.routing._
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future, ExecutionContext}
 import SessionStore._
-trait OauthClient extends HttpService   {
+trait OauthClient extends HttpService  with Logging {
 
   implicit val ec: ExecutionContext = ExecutionContext.global
 
@@ -79,11 +79,20 @@ trait OauthClient extends HttpService   {
 
   val login = (path("login") & get) {
     parameter("code") { code: String =>
-      val (token, expires) = getToken(code)
-      val sessionId = getRandomSessionId
-      addSession(sessionId, getUserProfile(token),expires*1000)
-      setCookie(HttpCookie(configure.CookieName, sessionId, None, Option(expires), None, Option("/"))) {
-        indexRedirect
+      try {
+        logger.debug(s"Starting login, code:[$code]")
+        val (token, expires) = getToken(code)
+        logger.debug(s"Got Token:[$token], expires:[$expires]")
+        val sessionId = getRandomSessionId
+        addSession(sessionId, getUserProfile(token), expires * 1000)
+        setCookie(HttpCookie(configure.CookieName, sessionId, None, Option(expires), None, Option("/"))) {
+          indexRedirect
+        }
+      }catch {
+        case t: Throwable => {
+          logger.error("Error in login", t)
+          throw t
+        }
       }
     }
   }
@@ -102,7 +111,8 @@ trait OauthClient extends HttpService   {
   }
 
   def getToken(code: String): (String, Long) = {
-    val tokenResponse: String = makeGetRq(tokenRq(code))
+    val tokenReq = tokenRq(code)
+    val tokenResponse: String = makeGetRq(tokenReq)
     val (token: String, expires: Long) = parseTokenRs(tokenResponse)
     (token, expires)
   }
@@ -113,10 +123,13 @@ trait OauthClient extends HttpService   {
   }
 
   def makeGetRq(url: String): String = {
+    logger.debug(s"Getting Request to url [$url]")
     val pipeline: HttpRequest => Future[HttpResponse] = sendReceive
     val response = pipeline(Get(url))
     val plainResponse: HttpResponse = Await.result(response, Duration.Inf)
-    plainResponse.entity.asString
+    val resp = plainResponse.entity.asString
+    logger.debug(s"Got Response:[$resp]")
+    resp
   }
 
 
