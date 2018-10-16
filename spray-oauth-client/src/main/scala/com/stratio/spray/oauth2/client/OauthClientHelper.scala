@@ -17,15 +17,16 @@ package com.stratio.spray.oauth2.client
 
 import org.apache.oltu.oauth2.client.request.OAuthClientRequest
 import org.apache.oltu.oauth2.common.message.types.GrantType
+import org.slf4j.LoggerFactory
 
 import scala.util.Try
 import scala.util.parsing.json.JSON
 
 
-object OauthClientHelper extends Logging {
+object OauthClientHelper {
 
   val conf = new Config
-
+  private lazy val log = LoggerFactory.getLogger(this.getClass)
 
   val DefaultExpiration: String = "-1"
 
@@ -60,9 +61,9 @@ object OauthClientHelper extends Logging {
 
   def hasRole(role: Seq[String], user: String, conf: Config = conf): Boolean = {
     if (conf.Enabled) {
-      logger.debug(s"Checking if user [$user] has permitted role: [$role]")
+      log.debug(s"Checking if user [$user] has permitted role: [$role]")
       val roles: Seq[Seq[String]] = getRoles(user)
-      logger.debug(s"User [$user] roles:[$roles]")
+      log.debug(s"User [$user] roles:[$roles]")
       val auth = role match {
         case Seq("*") => true
         case _ =>roles.flatMap(v =>
@@ -71,13 +72,13 @@ object OauthClientHelper extends Logging {
         ).contains(true)
       }
       if (auth){
-        logger.debug(s"User [$user] belongs to permitted roles")
+        log.debug(s"User [$user] belongs to permitted roles")
       }else{
-        logger.info(s"User [$user] does not contains required roles. Please check permitted roles list [$role]")
+        log.info(s"User [$user] does not contains required roles. Please check permitted roles list [$role]")
       }
       auth
     } else {
-      logger.debug(s"security disabled. Avoiding role checking")
+      log.debug(s"security disabled. Avoiding role checking")
       true
     }
   }

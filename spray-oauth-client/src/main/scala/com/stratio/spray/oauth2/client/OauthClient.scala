@@ -16,18 +16,21 @@
 package com.stratio.spray.oauth2.client
 
 import spray.client.pipelining._
-import spray.http.{HttpResponse, HttpRequest, HttpCookie}
+import spray.http.{HttpCookie, HttpRequest, HttpResponse}
 import spray.http.StatusCodes._
 import spray.routing._
 
 import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, Future, ExecutionContext}
+import scala.concurrent.{Await, ExecutionContext, Future}
 import SessionStore._
-trait OauthClient extends HttpService  with Logging {
+import org.slf4j.LoggerFactory
+trait OauthClient extends HttpService  {
 
   implicit val ec: ExecutionContext = ExecutionContext.global
 
   val configure = new Config
+
+  private lazy val log = LoggerFactory.getLogger(this.getClass)
 
   import OauthClientHelper._
 
@@ -80,9 +83,9 @@ trait OauthClient extends HttpService  with Logging {
   val login = (path("login") & get) {
     parameter("code") { code: String =>
       try {
-        logger.debug(s"Starting login, code:[$code]")
+        log.debug(s"Starting login, code:[$code]")
         val (token, expires) = getToken(code)
-        logger.debug(s"Got Token:[$token], expires:[$expires]")
+        log.debug(s"Got Token:[$token], expires:[$expires]")
         val sessionId = getRandomSessionId
         addSession(sessionId, getUserProfile(token), expires * 1000)
         setCookie(HttpCookie(configure.CookieName, sessionId, None, Option(expires), None, Option("/"))) {
@@ -90,7 +93,7 @@ trait OauthClient extends HttpService  with Logging {
         }
       }catch {
         case t: Throwable => {
-          logger.error("Error in login", t)
+          log.error("Error in login", t)
           throw t
         }
       }
@@ -123,12 +126,12 @@ trait OauthClient extends HttpService  with Logging {
   }
 
   def makeGetRq(url: String): String = {
-    logger.debug(s"Getting Request to url [$url]")
+    log.debug(s"Getting Request to url [$url]")
     val pipeline: HttpRequest => Future[HttpResponse] = sendReceive
     val response = pipeline(Get(url))
     val plainResponse: HttpResponse = Await.result(response, Duration.Inf)
     val resp = plainResponse.entity.asString
-    logger.debug(s"Got Response:[$resp]")
+    log.debug(s"Got Response:[$resp]")
     resp
   }
 

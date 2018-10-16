@@ -19,8 +19,8 @@ import akka.actor.ActorRefFactory
 import akka.util.Timeout
 import org.scalatest.{FlatSpec, Matchers}
 import spray.http.StatusCodes._
-import spray.routing.RoutingSettings
 import spray.testkit.ScalatestRouteTest
+
 import scala.concurrent.duration._
 
 class SprayOauthSpec extends FlatSpec with OauthClient with Matchers with ScalatestRouteTest {
