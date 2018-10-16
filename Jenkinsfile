@@ -11,8 +11,8 @@ hose {
 
     FOSS = true
 
-    DEVTIMEOUT = 15
-    RELEASETIMEOUT = 10
+    DEVTIMEOUT = 60
+    RELEASETIMEOUT = 30
     DEV = { config ->        
         
         parallel((config.CROSSBUILD[0]): {
