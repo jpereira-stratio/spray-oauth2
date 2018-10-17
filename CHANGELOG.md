@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.3.3 (upcoming)
+## 0.3.3 (October 17, 2018)
  * Improved logs info 
 
 ## 0.3.2 (February 22, 2017)
