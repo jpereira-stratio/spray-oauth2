@@ -30,7 +30,7 @@
     <groupId>com.stratio.spray.auth</groupId>
     <artifactId>spray-oauth2</artifactId>
     <packaging>pom</packaging>
-    <version>0.3.4-RC1-SNAPSHOT</version>
+    <version>0.3.4-RC1</version>
     <inceptionYear>2016</inceptionYear>
     <modules>
         <module>spray-oauth-client</module>
