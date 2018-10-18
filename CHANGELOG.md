@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.3.4 (upcoming)
+## 0.3.4 (October 18, 2018)
 
 * Use proper version for crossbuild plugin
  
