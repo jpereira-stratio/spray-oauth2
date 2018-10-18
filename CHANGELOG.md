@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.3.5 (upcoming)
+## 0.3.5 (October 18, 2018)
 
 * Set scala version to 2.11 and do not use crossbuild plugin
 
