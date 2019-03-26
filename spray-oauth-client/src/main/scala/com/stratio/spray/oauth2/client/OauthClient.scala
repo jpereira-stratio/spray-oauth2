@@ -130,9 +130,18 @@ trait OauthClient extends HttpService  {
     val pipeline: HttpRequest => Future[HttpResponse] = sendReceive
     val response = pipeline(Get(url))
     val plainResponse: HttpResponse = Await.result(response, Duration.Inf)
-    val resp = plainResponse.entity.asString
-    log.debug(s"Got Response:[$resp]")
-    resp
+    log.debug(s"Got Response:[$plainResponse]")
+    if (plainResponse.status.isSuccess) {
+      val resp = plainResponse.entity.asString
+      log.debug(s"Response OK -> [$resp]")
+      resp
+    }else{
+      val msg = s"Got error response from url [$url]. Code:[${plainResponse.status}]"
+      log.error(msg)
+      throw new SSOException(msg)
+    }
+
+
   }
 
 
