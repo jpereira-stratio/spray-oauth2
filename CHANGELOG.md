@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.3.6 (upcoming)
+## 0.3.6 (March 26, 2019)
 
 * [SECTY-989] Throw exception when sso returns some error
 
