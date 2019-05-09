@@ -49,12 +49,18 @@ object OauthClientHelper {
   }
 
   def getRoles(user: String): Seq[Seq[String]] = {
+    log.debug(s"Getting roles for user: [$user]. Role Name property:[${conf.RoleName}]")
     val parsed = JSON.parseFull(user).get.asInstanceOf[Map[String, Any]]
     val attrib = parsed.get("attributes").get.asInstanceOf[Seq[Map[String, Any]]]
+    log.debug(s"User attributes: [$attrib]")
+
     attrib.filter {
       _.contains(conf.RoleName)
     }.flatten.map(_ match {
-      case (role: String, roles: Any) => roles
+      case (role: String, roles: Any) => {
+        log.debug(s"Found roles:[$roles]; role property:[$role]")
+        roles
+      }
       case (x)=>throw new RuntimeException("the user has no roles")
     }).asInstanceOf[Seq[Seq[String]]]
   }
